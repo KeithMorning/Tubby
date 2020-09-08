@@ -1,0 +1,23 @@
+{
+  "name": "tubby",
+  "version": "1.0.0",
+  "description": "a excel to ios and android files",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --env=node --colors --coverage test"
+  },
+  "author": "Keith",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "path": "^0.12.7",
+    "xlsx": "^0.15.5"
+  },
+  "devDependencies": {
+    "@types/jest": "^22.1.1",
+    "@types/node": "^13.13.15",
+    "jest": "^22.1.4",
+    "ts-jest": "^22.0.2",
+    "typescript": "^3.9.7"
+  }
+}
