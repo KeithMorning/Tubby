@@ -143,7 +143,7 @@ export class Tubby{
                     if(!r_android.name){
                         r_android.name = 'unkonw';
                     }
-                    r_android.android_file = row.ios_file;
+                    r_android.android_file = row.android_file;
                     if(!r_android.android_file){
                         r_android.android_file = config.default_android_file;//
                     }

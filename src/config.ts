@@ -1,6 +1,6 @@
 
 //支持的语言，对应CSV文件的头部列名
-export const languages = ['en', 'zhs', 'zh-hk', 'kr'];
+export const languages = ['en', 'zhs', 'zh-hk', 'kr','zh-hant'];
 
 //iOS 输出文件与xcode名称保持一致
 export const iOS_language_map = new Map([
@@ -17,7 +17,7 @@ export const Android_language_map = new Map([
     ['zhs', 'values-zh-rCN'],
     ['zh-hk', 'values-zh-rHK'],
     ['kr', 'values-ko-rKR'],
-    ['zh-hant','values-zh-rHK'],
+    ['zh-hant','values-zh-rTW'],
 ]);
 
 //国际化文件

@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as config from '../config';
 import { makeFilePath } from "./FilePathChecker";
 import { get_current_day, get_current_year } from "./DateExtener";
+import * as tfs from './FileWriter'
 
 
 export class Translation2iOS extends BaseTranslation {
@@ -14,8 +15,7 @@ export class Translation2iOS extends BaseTranslation {
             let lang_data_map = data.get(file);
             for (let lang of filePaths.keys()) {
                 let filepath = filePaths.get(lang);
-                console.log('输出 iOS 语言🌶:' + lang + '输出文件路径:' + filepath);
-                this.writeiOS(lang_data_map,lang,file,filepath);
+                await this.writeiOS(lang_data_map,lang,file,filepath);
             }
         }
     }
@@ -25,6 +25,9 @@ export class Translation2iOS extends BaseTranslation {
         let key = record.ios_key;
         let value = record[lang];
         let format_value = this.translate_language(value);
+        if(!format_value){
+            return null
+        }
         string = "\"" + key + "\"" + ' = ' + "\"" + format_value + "\"" + ';' + '\n';
         return string;
     }
@@ -73,7 +76,8 @@ export class Translation2iOS extends BaseTranslation {
         return result;
     }
 
-    private writeiOS(data: Map<string, iOSData[]>, lang: string, file: string, file_path: string) {
+    private async writeiOS(data: Map<string, iOSData[]>, lang: string, file: string, file_path: string) {
+        let contentVaild = false
         let string = `/*
         ${file}
         Arm
@@ -87,9 +91,17 @@ export class Translation2iOS extends BaseTranslation {
             string = string + comment;
             for (let record of group) {
 
-                string = string + this.ios_obj2line(record, lang);
+                let line = this.ios_obj2line(record, lang);
+                if(line){
+                    string = string + line;
+                    contentVaild = true;
+                }
             }
         }
-        fs.writeFileSync(file_path, string, { encoding: 'utf-8' });
+
+        if(contentVaild){
+            console.log('输出 iOS 语言🌶:' + lang + '输出文件路径:' + file_path);
+            await tfs.writeStringToFile(string,file_path)
+        }
     }
 }
